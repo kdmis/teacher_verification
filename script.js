@@ -77,7 +77,8 @@ async function submitForm(event) {
     ehrmsId: document.getElementById("ehrmsId").value,
     ehrmsPassword: document.getElementById("ehrmsPassword").value,
     branchName: document.getElementById("branchName").value,
-    branchDistrict: document.getElementById("branchDistrict").value
+    branchDistrict: document.getElementById("branchDistrict").value,
+    guarantorDetail: document.getElementById("guarantorDetail").value
   };
 
   fetch("https://script.google.com/macros/s/AKfycbx-4TUOqbhDVLLZ_w2Zi1Ehr2hFVNVqyUIhw4zY_KEuGOtSTmGRTgP2NJ3MDjxW5ckV/exec", {
