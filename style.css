@@ -1,0 +1,6 @@
+/* Additional custom styles beyond Tailwind */
+.hidden {
+  display: none;
+}
+
+/* You may add more custom styles here if needed in the future */

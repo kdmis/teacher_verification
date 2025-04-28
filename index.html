@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teacher Verification</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- LottieFiles CDN (for animation) -->
+  <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+  <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-6">
+    <!-- Header with Lottie Animation -->
+    <div class="flex items-center justify-center mb-6">
+      <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_totrpclr.json"  background="transparent"  speed="1"  style="width: 150px; height: 150px;"  loop  autoplay></lottie-player>  <dotlottie-player src="https://lottie.host/19d5ca67-3231-434d-befe-65b78dca9778/LTuB4WTAVX.lottie" background="transparent" speed="1" style="width: 150px; height: 150px" loop autoplay></dotlottie-player>
+      <h1 class="text-3xl font-bold text-gray-800 ml-4">Teacher Verification</h1>
+    </div>
+
+    <!-- Teacher Details Fetch Section -->
+    <div class="bg-white shadow-md rounded p-6 mb-8">
+      <h2 class="text-xl font-semibold mb-4">Fetch Teacher Details</h2>
+      <div class="flex items-center space-x-4 mb-4">
+        <input type="text" id="formNo" placeholder="Enter Form No" class="border border-gray-300 rounded px-3 py-2 w-full" />
+        <button onclick="fetchDetails()" class="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700">Fetch Details</button>
+      </div>
+      <div id="teacherDetails" class="hidden">
+        <h3 class="text-lg font-semibold mb-2">Teacher Details:</h3>
+        <table class="min-w-full bg-white border border-gray-200">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="py-2 px-4 border-b">Name</th>
+              <th class="py-2 px-4 border-b">District</th>
+              <th class="py-2 px-4 border-b">Designation</th>
+              <th class="py-2 px-4 border-b">School</th>
+              <th class="py-2 px-4 border-b">Block</th>
+              <th class="py-2 px-4 border-b">Mobile 1</th>
+              <th class="py-2 px-4 border-b">Mobile 2</th>
+              <th class="py-2 px-4 border-b">Salary A/c No.</th>
+              <th class="py-2 px-4 border-b">EHRMS ID Pass Okay?</th>
+              <th class="py-2 px-4 border-b">Salary Regular or Not</th>
+            </tr>
+          </thead>
+          <tbody id="teacherTableBody">
+            <!-- Data will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Verification Form -->
+    <form id="verificationForm" class="bg-white shadow-md rounded p-6" onsubmit="submitForm(event)">
+      <h2 class="text-xl font-semibold mb-4">Verification Form</h2>
+      <!-- Hidden Form No -->
+      <input type="hidden" id="hiddenFormNo" name="formNo" />
+
+      <!-- Verifier Name -->
+      <div class="mb-4">
+        <label for="verifierName" class="block font-medium mb-1">Verifier Name</label>
+        <input type="text" id="verifierName" name="verifierName" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+      </div>
+
+      <!-- Group A: Salary A/c Details -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-2">A) Salary A/c Details</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="salaryAccount" class="block font-medium mb-1">Salary A/c No.</label>
+            <input type="number" id="salaryAccount" name="salaryAccount" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label for="ifscCode" class="block font-medium mb-1">Salary A/c IFSC Code</label>
+            <input type="text" id="ifscCode" name="ifscCode" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label for="bankName" class="block font-medium mb-1">Salary A/c Bank Name</label>
+            <input type="text" id="bankName" name="bankName" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label class="block font-medium mb-1">Sir Abhi Filhal me Branch Change To Nahi Ki Hai</label>
+            <select name="branchChange" id="branchChange" class="border border-gray-300 rounded px-3 py-2 w-full" required>
+              <option value="">Select</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group B: Other Questions -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-2">B) Other Questions</h3>
+        <div class="space-y-4">
+          <div>
+            <label for="chequesGiven" class="block font-medium mb-1">Aapne Apne Cheques Kitne Diye Hain:</label>
+            <input type="number" id="chequesGiven" name="chequesGiven" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label for="chequesBank" class="block font-medium mb-1">Aapne Apne Cheques Kis Bank ke Diye Hain:</label>
+            <input type="text" id="chequesBank" name="chequesBank" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label for="fileMembers" class="block font-medium mb-1">Aapki file jab hui thi tab wahan kon kon maujood the:</label>
+            <textarea id="fileMembers" name="fileMembers" class="border border-gray-300 rounded px-3 py-2 w-full" rows="2" required></textarea>
+          </div>
+          <div>
+            <label for="guarantorChequesBank" class="block font-medium mb-1">Guarantor Ke Cheques Kis Bank ke Diye Hain:</label>
+            <input type="text" id="guarantorChequesBank" name="guarantorChequesBank" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label for="guarantorChequesCount" class="block font-medium mb-1">Guarantor Ke Kitne Cheques Diye hain:</label>
+            <input type="number" id="guarantorChequesCount" name="guarantorChequesCount" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label class="block font-medium mb-1">Agent ko koi nagad ya kuch udhaar pese diye ho kharche ke lie:</label>
+            <select name="agentCashGiven" id="agentCashGiven" class="border border-gray-300 rounded px-3 py-2 w-full" required>
+              <option value="">Select</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <!-- Question 6a: Shown conditionally -->
+          <div id="agentCashDetailsContainer" class="hidden">
+            <label for="agentCashDetails" class="block font-medium mb-1">6a) Kitne pese diye the Agent ko or Kab diye the:</label>
+            <textarea id="agentCashDetails" name="agentCashDetails" class="border border-gray-300 rounded px-3 py-2 w-full" rows="2"></textarea>
+          </div>
+          <div>
+            <label for="agentMobiles" class="block font-medium mb-1">Agent ne aapko apne kon kon se mobile no. diye hain:</label>
+            <input type="text" id="agentMobiles" name="agentMobiles" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label class="block font-medium mb-1">Aapne koi letter ya kuch likha tha jab aapki file bhari gyi thi?</label>
+            <select name="letterWritten" id="letterWritten" class="border border-gray-300 rounded px-3 py-2 w-full" required>
+              <option value="">Select</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <!-- Question 8a: Shown conditionally -->
+          <div id="letterCountContainer" class="hidden">
+            <label for="letterCount" class="block font-medium mb-1">8a) Kitne letters likhe the aapne:</label>
+            <input type="number" id="letterCount" name="letterCount" class="border border-gray-300 rounded px-3 py-2 w-full" />
+          </div>
+          <div>
+            <label for="filePhoto" class="block font-medium mb-1">Aapne jo file bhari thi uski koi photo copy li thi ya mobile me koi photo kheencha tha aapne?</label>
+            <select name="filePhoto" id="filePhoto" class="border border-gray-300 rounded px-3 py-2 w-full" required>
+              <option value="">Select</option>
+              <option value="Yes Photo Copy li thi">Yes Photo Copy li thi</option>
+              <option value="Mobile me Photo Kheencha Tha">Mobile me Photo Kheencha Tha</option>
+              <option value="Kuch bhi nahi liya tha">Kuch bhi nahi liya tha</option>
+            </select>
+          </div>
+          <div>
+            <label for="fileLocation" class="block font-medium mb-1">Aapki File kahan bhari gyi thi (bus stand ya railway stand se kitni doori hogi):</label>
+            <input type="text" id="fileLocation" name="fileLocation" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label for="salaryRegularity" class="block font-medium mb-1">Vetan Kyu Ruka Tha Massab (sirf tab hi puchhna hai agr 4-5 mahine ke lie ruka ho pichhle 1-2 saal me kabhi):</label>
+            <input type="text" id="salaryRegularity" name="salaryRegularity" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label for="ehrmsId" class="block font-medium mb-1">EHRMS ID:</label>
+            <input type="number" id="ehrmsId" name="ehrmsId" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+          <div>
+            <label for="ehrmsPassword" class="block font-medium mb-1">EHRMS Password:</label>
+            <input type="text" id="ehrmsPassword" name="ehrmsPassword" class="border border-gray-300 rounded px-3 py-2 w-full" required />
+          </div>
+
+        </div>
+      </div>
+      
+      <button type="submit" class="bg-green-600 text-white rounded px-4 py-2 hover:bg-green-700">Submit Verification</button>
+    </form>
+  </div>
+
+  <!-- Link to external JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
