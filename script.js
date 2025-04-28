@@ -75,7 +75,9 @@ async function submitForm(event) {
     fileLocation: document.getElementById("fileLocation").value,
     salaryRegularity: document.getElementById("salaryRegularity").value,
     ehrmsId: document.getElementById("ehrmsId").value,
-    ehrmsPassword: document.getElementById("ehrmsPassword").value
+    ehrmsPassword: document.getElementById("ehrmsPassword").value,
+    branchName: document.getElementById("branchName").value,
+    branchDistrict: document.getElementById("branchDistrict").value
   };
 
   fetch("https://script.google.com/macros/s/AKfycbx-4TUOqbhDVLLZ_w2Zi1Ehr2hFVNVqyUIhw4zY_KEuGOtSTmGRTgP2NJ3MDjxW5ckV/exec", {
