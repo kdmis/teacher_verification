@@ -4,7 +4,7 @@ async function fetchDetails() {
     alert("Please enter a Form No.");
     return;
   }
-  let url = `https://script.google.com/macros/s/AKfycbx-4TUOqbhDVLLZ_w2Zi1Ehr2hFVNVqyUIhw4zY_KEuGOtSTmGRTgP2NJ3MDjxW5ckV/exec?formNo=${formNo}`;
+  let url = `https://script.google.com/macros/s/AKfycbwk0FnNIkHyZCTFDZbUOvFFwCsADrnbI2nWZCR0RD9Y-lMHGOLdyuihOc8H4cadOzUd/exec?formNo=${formNo}`;
   
   try {
     let response = await fetch(url);
@@ -81,7 +81,7 @@ async function submitForm(event) {
     guarantorDetail: document.getElementById("guarantorDetail").value
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbx-4TUOqbhDVLLZ_w2Zi1Ehr2hFVNVqyUIhw4zY_KEuGOtSTmGRTgP2NJ3MDjxW5ckV/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwk0FnNIkHyZCTFDZbUOvFFwCsADrnbI2nWZCR0RD9Y-lMHGOLdyuihOc8H4cadOzUd/exec", {
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "application/json" },
